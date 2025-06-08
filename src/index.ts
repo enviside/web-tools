@@ -7,13 +7,14 @@ const PORT = 8222
 
 app.get('/decode', async (req: Request, res: Response): Promise<any> => {
   const url = req.query.url as string | undefined
+  const formateUrl = `https://api.scrape.do?token=e24d0fbee61140cbb50feaf0509a361ebca1d08996f&url=${url}`
 
-  if (!url) {
+  if (!formateUrl) {
     return res.status(400).json({ error: 'Missing ?url= parameter' })
   }
 
   try {
-    const response = await axios.get<ArrayBuffer>(url, {
+    const response = await axios.get<ArrayBuffer>(formateUrl, {
       responseType: 'arraybuffer',
       timeout: 10000,
       headers: {
